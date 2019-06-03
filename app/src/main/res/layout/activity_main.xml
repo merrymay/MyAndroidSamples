@@ -7,6 +7,7 @@
     <data>
         <variable name="handlers" type="com.may.myandroidsamples.MyHandlers"/>
         <variable name="user" type="com.may.myandroidsamples.viewmodel.User"/>
+        <variable name="myViewModel" type="com.may.myandroidsamples.viewmodel.livedata.MyViewModel"/>
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -23,6 +24,13 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
+        <Button
+                android:text="@{myViewModel.strCount}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:id="@+id/button"/>
 
 
     </android.support.constraint.ConstraintLayout>

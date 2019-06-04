@@ -8,9 +8,23 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.may.myandroidsamples.databinding.ActivityMainBinding
+import com.may.myandroidsamples.retrofit.GitHubRepo
 import com.may.myandroidsamples.viewmodel.User
 import com.may.myandroidsamples.viewmodel.livedata.MyViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import com.may.myandroidsamples.retrofit.GitHubService
+import com.may.myandroidsamples.retrofit.WikiService
+import io.reactivex.Scheduler
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,6 +39,14 @@ class MainActivity : AppCompatActivity() {
         Observer<Int> {
                 value -> value?.let { incrementCount(value) }
         }
+
+
+    // Using Retrofit2 - Wiki API test
+    val wikiApiService by lazy {
+        WikiService.create()
+    }
+    var disposable: Disposable? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,6 +94,30 @@ class MainActivity : AppCompatActivity() {
         viewModel.changeNotifier.observe(this, changeObserver)
         button.setOnClickListener{viewModel.increment()}
 
+
+        // Using Retrofit2 - GitHub API test
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://api.github.com/")
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val service = retrofit.create(GitHubService::class.java)
+        val repos:Call<List<GitHubRepo>> = service.listRepos("merrymay")
+
+        //repos.enqueue()
+        Log.d("MySample", "My repo  = $repos")
+
+
+        // Using Retrofit2 - Wiki API test
+        beginSearch("apple")
+
+    }
+
+
+    override fun onPause() {
+        super.onPause()
+        disposable?.dispose()
     }
 
     // Kotlin's function
@@ -105,5 +151,21 @@ class MainActivity : AppCompatActivity() {
     private fun incrementCount(value: Int) {
         button.text = (value).toString()
         Log.d("MySample", "Using LiveData. incrementCount = $value")
+    }
+
+    // Using Retrofit2
+    private fun beginSearch(srsearch: String) {
+        disposable =
+            wikiApiService.hitCountCheck("query", "json", "search", srsearch)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    Log.d("MySample", "Using Retrofilt2. WikiService. Result = $it")
+                },
+                    {
+                        Log.d("MySample", "Using Retrofilt2. WikiService Error. ${it.localizedMessage}")
+
+
+                    })
     }
 }

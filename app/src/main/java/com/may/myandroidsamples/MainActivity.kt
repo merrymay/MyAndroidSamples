@@ -25,6 +25,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
+private val TAG: String = MainActivity::class.java.simpleName
 
 class MainActivity : AppCompatActivity() {
 
@@ -163,7 +164,7 @@ class MainActivity : AppCompatActivity() {
                     Log.d("MySample", "Using Retrofilt2. WikiService. Result = $it")
                 },
                     {
-                        Log.d("MySample", "Using Retrofilt2. WikiService Error. ${it.localizedMessage}")
+                        Log.d(TAG, "Using Retrofilt2. WikiService Error. ${it.localizedMessage}", it)
 
 
                     })

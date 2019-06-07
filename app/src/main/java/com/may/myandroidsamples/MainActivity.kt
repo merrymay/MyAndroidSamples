@@ -4,9 +4,11 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.databinding.DataBindingUtil
+import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.jakewharton.threetenabp.AndroidThreeTen
 import com.may.myandroidsamples.databinding.ActivityMainBinding
 import com.may.myandroidsamples.retrofit.GitHubRepo
 import com.may.myandroidsamples.viewmodel.User
@@ -24,6 +26,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.time.*
 
 private val TAG: String = MainActivity::class.java.simpleName
 
@@ -121,6 +124,20 @@ class MainActivity : AppCompatActivity() {
         // get Data from fcm message when app is launched from notification
         val fcmExtras = getIntent().getStringExtra("Nick")
         Log.d("MySample", "FCM Payload in MainActivity's Intent  = $fcmExtras")
+
+
+        // Using Java.time
+        if (Build.VERSION.SDK_INT >= 26) {
+
+            // timezone id : https://docs.oracle.com/javase/8/docs/api/java/time/ZoneId.html
+            val zoneId = ZoneId.of("America/New_York")
+
+            Log.d(TAG, "currentTime = ${LocalDate.now()}  ${LocalTime.now()}, New_York = ${LocalDate.now(zoneId)} ${LocalTime.now(zoneId)}")
+        }
+
+        // Using JSR-310 (Android SDK 25 이하 버전 지원)
+        AndroidThreeTen.init(this)
+        Log.d(TAG, "currentTime using JSR-310. = ${org.threeten.bp.LocalDate.now()} ${org.threeten.bp.LocalTime.now()}")
 
 
 

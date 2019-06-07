@@ -117,6 +117,13 @@ class MainActivity : AppCompatActivity() {
         // Using Retrofit2 - Wiki API test
         beginSearch("apple")
 
+
+        // get Data from fcm message when app is launched from notification
+        val fcmExtras = getIntent().getStringExtra("Nick")
+        Log.d("MySample", "FCM Payload in MainActivity's Intent  = $fcmExtras")
+
+
+
     }
 
 

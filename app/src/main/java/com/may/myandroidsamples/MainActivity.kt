@@ -30,6 +30,7 @@ private val TAG: String = MainActivity::class.java.simpleName
 class MainActivity : AppCompatActivity() {
 
 
+    // test commit - livedata branch
     // Using LiveData
     private val viewModel: MyViewModel by lazy {
         //ViewModelProvider.of(this).get(MyViewModel::class.java)

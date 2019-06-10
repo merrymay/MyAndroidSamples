@@ -32,6 +32,12 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:id="@+id/button"/>
 
-
+        <Button
+                android:text="Go WebView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/buttonForWebView"/>
     </android.support.constraint.ConstraintLayout>
 </layout>

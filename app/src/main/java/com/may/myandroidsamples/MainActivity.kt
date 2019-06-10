@@ -3,11 +3,13 @@ package com.may.myandroidsamples
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import com.jakewharton.threetenabp.AndroidThreeTen
 import com.may.myandroidsamples.databinding.ActivityMainBinding
 import com.may.myandroidsamples.retrofit.GitHubRepo
@@ -16,6 +18,7 @@ import com.may.myandroidsamples.viewmodel.livedata.MyViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import com.may.myandroidsamples.retrofit.GitHubService
 import com.may.myandroidsamples.retrofit.WikiService
+import com.may.myandroidsamples.webview.WebViewActivity
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -140,7 +143,11 @@ class MainActivity : AppCompatActivity() {
         Log.d(TAG, "currentTime using JSR-310. = ${org.threeten.bp.LocalDate.now()} ${org.threeten.bp.LocalTime.now()}")
 
 
-
+        // Using Webview
+        binding.root.findViewById<Button>(R.id.buttonForWebView).setOnClickListener{
+            Log.d(TAG, "Starting Webview Activity!")
+            startActivity(Intent(this, WebViewActivity::class.java))
+        }
     }
 
 

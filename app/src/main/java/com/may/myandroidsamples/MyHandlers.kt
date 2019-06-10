@@ -5,6 +5,7 @@ import android.view.View
 
 class MyHandlers {
     fun onClickFriend(view: View){
-        Log.d("MySample", "Name is clicked!")
+        Log.d("MySample", "View is clicked! ${view.id}")
     }
+
 }

@@ -38,6 +38,8 @@ class MainActivity : AppCompatActivity() {
     // new branch test (develop_local) - only for local
 
 
+    // commit - ArchComponentSamples branch
+
     // merge conflict resolve to live data!
     // test commit - livedata branch
     // Test commit for LiveData_Sub branch (updated!)

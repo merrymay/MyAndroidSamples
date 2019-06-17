@@ -36,6 +36,8 @@ private val TAG: String = MainActivity::class.java.simpleName
 class MainActivity : AppCompatActivity() {
 
 
+    // commit - ArchComponentSamples branch
+
     // merge conflict resolve to live data!
     // test commit - livedata branch
     // Test commit for LiveData_Sub branch (updated!)

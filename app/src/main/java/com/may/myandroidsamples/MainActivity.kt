@@ -35,6 +35,8 @@ private val TAG: String = MainActivity::class.java.simpleName
 
 class MainActivity : AppCompatActivity() {
 
+    // new branch test (develop_local) - only for local
+
 
     // merge conflict resolve to live data!
     // test commit - livedata branch
